@@ -157,6 +157,117 @@ const DETECTION_VARIANTS = (() => {
     return all;
 })();
 
+// --- Übersetzungen ---
+const TRANSLATIONS = {
+    de: {
+        btnLang: '🌐 EN',
+        btnInfo: '? Regeln', btnInfoTitle: 'Regeln anzeigen',
+        btnStart: '▶ Start', btnPause: '⏸ Pause',
+        btnStep: '⏭ Schritt', btnClear: '🗑 Leeren', btnRandom: '🎲 Zufall',
+        lblDensity: 'Dichte:', lblSpeed: 'Geschwindigkeit:', lblMaxGen: 'Max. Gen.:',
+        limitTitle: 'Generationslimit aktivieren', maxGenTitle: 'Maximale Anzahl Generationen',
+        generation: 'Generation',
+        structuresLabel: 'Strukturen:',
+        coloringOn: 'Färbung: AN', coloringOff: 'Färbung: AUS', coloringTitle: 'Strukturfärbung ein-/ausschalten',
+        structureTitles: {
+            blinker: 'Einfacher Oszillator (Periode 2)',
+            glider:  'Bewegt sich diagonal durchs Grid',
+            lwss:    'LWSS — bewegt sich horizontal',
+            pulsar:  'Symmetrischer Oszillator (Periode 3)',
+            gun:     "Gosper's Glider Gun — produziert endlos Glider",
+        },
+        statsLabel: 'Protokoll:', resetTitle: 'Protokoll zurücksetzen',
+        statNames: { 1: 'Blinker', 2: 'Glider', 3: 'Spaceship', 4: 'Pulsar' },
+        hint: 'Klicke auf das Gitter, um Zellen zu setzen oder zu löschen. Struktur auswählen → ins Grid klicken zum Platzieren (ESC zum Abbrechen).',
+        modalHTML: `
+            <h2>Die Regeln des Lebens</h2>
+            <p>Conway's Game of Life spielt auf einem unendlichen Gitter aus Zellen. Jede Zelle ist entweder <strong>lebendig</strong> oder <strong>tot</strong>. Pro Generation gelten vier einfache Regeln:</p>
+            <ol>
+                <li><strong>Einsamkeit:</strong> Eine lebende Zelle mit weniger als 2 lebenden Nachbarn stirbt.</li>
+                <li><strong>Überleben:</strong> Eine lebende Zelle mit 2 oder 3 lebenden Nachbarn überlebt.</li>
+                <li><strong>Überbevölkerung:</strong> Eine lebende Zelle mit mehr als 3 lebenden Nachbarn stirbt.</li>
+                <li><strong>Reproduktion:</strong> Eine tote Zelle mit genau 3 lebenden Nachbarn wird lebendig.</li>
+            </ol>
+            <p>Aus diesen simplen Regeln entstehen komplexe, faszinierende Muster — von stabilen Strukturen über Oszillatoren bis hin zu sich bewegenden Raumschiffen.</p>
+            <p><strong>Hinweis zur Glider Gun:</strong> Die Glider Gun wird nicht automatisch erkannt. Mit Periode 30 und 36 Zellen ergäben sich 240 Varianten (30 Phasen × 8 Symmetrien), was die Simulation zu stark verlangsamen würde. Sie wird nur beim manuellen Setzen per Button hervorgehoben.</p>
+            <a href="https://de.wikipedia.org/wiki/Conways_Spiel_des_Lebens" target="_blank" rel="noopener">→ Wikipedia: Conways Spiel des Lebens</a>
+            <button id="modal-close">Schließen</button>`,
+    },
+    en: {
+        btnLang: '🌐 DE',
+        btnInfo: '? Rules', btnInfoTitle: 'Show rules',
+        btnStart: '▶ Start', btnPause: '⏸ Pause',
+        btnStep: '⏭ Step', btnClear: '🗑 Clear', btnRandom: '🎲 Random',
+        lblDensity: 'Density:', lblSpeed: 'Speed:', lblMaxGen: 'Max. Gen.:',
+        limitTitle: 'Enable generation limit', maxGenTitle: 'Maximum number of generations',
+        generation: 'Generation',
+        structuresLabel: 'Structures:',
+        coloringOn: 'Coloring: ON', coloringOff: 'Coloring: OFF', coloringTitle: 'Toggle structure coloring',
+        structureTitles: {
+            blinker: 'Simple oscillator (period 2)',
+            glider:  'Moves diagonally across the grid',
+            lwss:    'LWSS — moves horizontally',
+            pulsar:  'Symmetric oscillator (period 3)',
+            gun:     "Gosper's Glider Gun — endlessly produces Gliders",
+        },
+        statsLabel: 'Log:', resetTitle: 'Reset log',
+        statNames: { 1: 'Blinker', 2: 'Glider', 3: 'Spaceship', 4: 'Pulsar' },
+        hint: 'Click on the grid to place or remove cells. Select a structure → click on the grid to place it (ESC to cancel).',
+        modalHTML: `
+            <h2>The Rules of Life</h2>
+            <p>Conway's Game of Life takes place on an infinite grid of cells. Each cell is either <strong>alive</strong> or <strong>dead</strong>. Each generation, four simple rules apply simultaneously:</p>
+            <ol>
+                <li><strong>Underpopulation:</strong> A live cell with fewer than 2 live neighbors dies.</li>
+                <li><strong>Survival:</strong> A live cell with 2 or 3 live neighbors lives on.</li>
+                <li><strong>Overpopulation:</strong> A live cell with more than 3 live neighbors dies.</li>
+                <li><strong>Reproduction:</strong> A dead cell with exactly 3 live neighbors becomes alive.</li>
+            </ol>
+            <p>From these simple rules emerge complex, fascinating patterns — from stable structures to oscillators and moving spaceships.</p>
+            <p><strong>Note on the Glider Gun:</strong> The Glider Gun is not auto-detected. With a period of 30 and 36 cells, full detection would require 240 variants (30 phases × 8 symmetries), which would significantly slow down the simulation. It is only highlighted when manually placed via the button.</p>
+            <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank" rel="noopener">→ Wikipedia: Conway's Game of Life</a>
+            <button id="modal-close">Close</button>`,
+    }
+};
+
+let currentLang = 'de';
+function t() { return TRANSLATIONS[currentLang]; }
+
+function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    const tr = t();
+
+    document.getElementById('btn-lang').textContent          = tr.btnLang;
+    document.getElementById('btn-info').textContent          = tr.btnInfo;
+    document.getElementById('btn-info').title                = tr.btnInfoTitle;
+    document.getElementById('btn-start').textContent         = running ? tr.btnPause : tr.btnStart;
+    document.getElementById('btn-step').textContent          = tr.btnStep;
+    document.getElementById('btn-clear').textContent         = tr.btnClear;
+    document.getElementById('btn-random').textContent        = tr.btnRandom;
+    document.getElementById('lbl-density').textContent       = tr.lblDensity;
+    document.getElementById('lbl-speed').textContent         = tr.lblSpeed;
+    document.getElementById('lbl-maxgen').textContent        = tr.lblMaxGen;
+    document.getElementById('limit-enabled').title           = tr.limitTitle;
+    document.getElementById('max-gen').title                 = tr.maxGenTitle;
+    document.getElementById('generation').textContent        = `${tr.generation}: ${generation}`;
+    document.getElementById('structures-label').textContent  = tr.structuresLabel;
+    document.getElementById('btn-coloring').textContent      = coloringEnabled ? tr.coloringOn : tr.coloringOff;
+    document.getElementById('btn-coloring').title            = tr.coloringTitle;
+    document.getElementById('stats-label').textContent       = tr.statsLabel;
+    document.getElementById('btn-reset-counts').title        = tr.resetTitle;
+    document.getElementById('hint').textContent              = tr.hint;
+
+    document.querySelectorAll('.btn-structure').forEach(btn => {
+        btn.title = tr.structureTitles[btn.dataset.structure];
+    });
+
+    document.getElementById('modal').innerHTML = tr.modalHTML;
+    document.getElementById('modal-close').addEventListener('click',
+        () => document.getElementById('modal-overlay').classList.remove('visible'));
+
+    updateStatsDisplay();
+}
+
 // --- Zustand ---
 let grid          = [];
 let highlightGrid = [];
@@ -243,7 +354,7 @@ function detectAndMark() {
 }
 
 function updateStatsDisplay() {
-    const names = { 1: "Blinker", 2: "Glider", 3: "Spaceship", 4: "Pulsar" };
+    const names = t().statNames;
     for (const id of [1, 2, 3, 4]) {
         document.getElementById(`stat-${id}`).textContent =
             `${names[id]}: ${structureCounts[id]}`;
@@ -315,7 +426,7 @@ function nextGeneration() {
     highlightGrid = newHighlight;
     detectAndMark();
     generation++;
-    document.getElementById("generation").textContent = `Generation: ${generation}`;
+    document.getElementById("generation").textContent = `${t().generation}: ${generation}`;
     draw();
     if (generation >= maxGenerations) toggleRunning();
 }
@@ -325,11 +436,11 @@ function toggleRunning() {
     running = !running;
     const btn = document.getElementById("btn-start");
     if (running) {
-        btn.textContent = "⏸ Pause";
+        btn.textContent = t().btnPause;
         const speed = parseInt(document.getElementById("speed").value);
         intervalId = setInterval(nextGeneration, Math.floor(1000 / speed));
     } else {
-        btn.textContent = "▶ Start";
+        btn.textContent = t().btnStart;
         clearInterval(intervalId);
         intervalId = null;
     }
@@ -345,7 +456,7 @@ function clearGrid() {
     grid          = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
     highlightGrid = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
     generation    = 0;
-    document.getElementById("generation").textContent = "Generation: 0";
+    document.getElementById("generation").textContent = `${t().generation}: 0`;
     resetCounts();
     draw();
 }
@@ -357,7 +468,7 @@ function randomGrid() {
     );
     highlightGrid = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
     generation    = 0;
-    document.getElementById("generation").textContent = "Generation: 0";
+    document.getElementById("generation").textContent = `${t().generation}: 0`;
     resetCounts();
     detectAndMark();
     draw();
@@ -436,8 +547,11 @@ document.getElementById("speed").addEventListener("input", (event) => {
 // --- Button-Events ---
 const modalOverlay = document.getElementById("modal-overlay");
 document.getElementById("btn-info").addEventListener("click",  () => modalOverlay.classList.add("visible"));
-document.getElementById("modal-close").addEventListener("click", () => modalOverlay.classList.remove("visible"));
 modalOverlay.addEventListener("click", (e) => { if (e.target === modalOverlay) modalOverlay.classList.remove("visible"); });
+
+document.getElementById("btn-lang").addEventListener("click", () => {
+    setLanguage(currentLang === 'de' ? 'en' : 'de');
+});
 
 document.getElementById("density").addEventListener("input", (event) => {
     document.getElementById("density-label").textContent = `${event.target.value}%`;
@@ -473,4 +587,5 @@ document.querySelectorAll(".btn-structure").forEach(btn => {
 });
 
 // --- Start ---
+setLanguage('de');
 clearGrid();

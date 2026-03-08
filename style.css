@@ -172,6 +172,18 @@ canvas {
   color: #888;
 }
 
+#btn-lang {
+  background: #1a1a2e;
+  color: #00d4aa;
+  border-color: #00d4aa;
+  font-weight: bold;
+}
+
+#btn-lang:hover {
+  background: #00d4aa;
+  color: #1a1a2e;
+}
+
 #btn-info {
   background: #00d4aa;
   color: #1a1a2e;

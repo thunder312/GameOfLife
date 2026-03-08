@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conway's Game of Life</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>Conway's Game of Life</h1>
+
+    <div id="controls">
+      <button id="btn-info" title="Regeln anzeigen">? Regeln</button>
+      <button id="btn-start">▶ Start</button>
+      <button id="btn-step">⏭ Schritt</button>
+      <button id="btn-clear">🗑 Leeren</button>
+      <button id="btn-random">🎲 Zufall</button>
+      <label>
+        Dichte:
+        <input type="range" id="density" min="1" max="100" value="25">
+        <span id="density-label">25%</span>
+      </label>
+      <label>
+        Geschwindigkeit:
+        <input type="range" id="speed" min="1" max="30" value="10">
+        <span id="speed-label">10 FPS</span>
+      </label>
+      <label id="label-maxgen">
+        Max. Gen.:
+        <input type="checkbox" id="limit-enabled" title="Generationslimit aktivieren">
+        <input type="number" id="max-gen" min="1" value="100" disabled title="Maximale Anzahl Generationen">
+      </label>
+      <span id="generation">Generation: 0</span>
+    </div>
+
+    <div id="structures">
+      <span id="structures-label">Strukturen:</span>
+      <button id="btn-coloring" title="Strukturfärbung ein-/ausschalten">Färbung: AN</button>
+      <button class="btn-structure" data-structure="blinker" title="Einfacher Oszillator (Periode 2)"   style="--sc:#ff6b6b">Blinker</button>
+      <button class="btn-structure" data-structure="glider"  title="Bewegt sich diagonal durchs Grid"    style="--sc:#c084fc">Glider</button>
+      <button class="btn-structure" data-structure="lwss"    title="LWSS — bewegt sich horizontal"       style="--sc:#38bdf8">Spaceship</button>
+      <button class="btn-structure" data-structure="pulsar"  title="Symmetrischer Oszillator (Periode 3)" style="--sc:#fb923c">Pulsar</button>
+      <button class="btn-structure" data-structure="gun"     title="Gosper's Glider Gun — produziert endlos Glider" style="--sc:#fde047">Glider Gun</button>
+    </div>
+
+    <div id="stats">
+      <span id="stats-label">Protokoll:</span>
+      <span id="stat-1" style="color:#ff6b6b">Blinker: 0</span>
+      <span id="stat-2" style="color:#c084fc">Glider: 0</span>
+      <span id="stat-3" style="color:#38bdf8">Spaceship: 0</span>
+      <span id="stat-4" style="color:#fb923c">Pulsar: 0</span>
+      <button id="btn-reset-counts" title="Protokoll zurücksetzen">↺ Reset</button>
+    </div>
+
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <p id="hint">Klicke auf das Gitter, um Zellen zu setzen oder zu löschen. Struktur auswählen → ins Grid klicken zum Platzieren (ESC zum Abbrechen).</p>
+  </div>
+
+  <div id="modal-overlay">
+    <div id="modal">
+      <h2>Die Regeln des Lebens</h2>
+      <p>Conway's Game of Life spielt auf einem unendlichen Gitter aus Zellen. Jede Zelle ist entweder <strong>lebendig</strong> oder <strong>tot</strong>. Pro Generation gelten vier einfache Regeln:</p>
+      <ol>
+        <li><strong>Einsamkeit:</strong> Eine lebende Zelle mit weniger als 2 lebenden Nachbarn stirbt.</li>
+        <li><strong>Überleben:</strong> Eine lebende Zelle mit 2 oder 3 lebenden Nachbarn überlebt.</li>
+        <li><strong>Überbevölkerung:</strong> Eine lebende Zelle mit mehr als 3 lebenden Nachbarn stirbt.</li>
+        <li><strong>Reproduktion:</strong> Eine tote Zelle mit genau 3 lebenden Nachbarn wird lebendig.</li>
+      </ol>
+      <p>Aus diesen simplen Regeln entstehen komplexe, faszinierende Muster — von stabilen Strukturen über Oszillatoren bis hin zu sich bewegenden Raumschiffen.</p>
+      <p><strong>Hinweis zur Glider Gun:</strong> Die Glider Gun wird nicht automatisch erkannt. Mit Periode 30 und 36 Zellen ergäben sich 240 Varianten (30 Phasen × 8 Symmetrien), was die Simulation zu stark verlangsamen würde. Sie wird nur beim manuellen Setzen per Button hervorgehoben.</p>
+      <a href="https://de.wikipedia.org/wiki/Conways_Spiel_des_Lebens" target="_blank" rel="noopener">→ Wikipedia: Conways Spiel des Lebens</a>
+      <button id="modal-close">Schließen</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

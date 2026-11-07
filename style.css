@@ -5,9 +5,9 @@
 }
 
 body {
-  background: #1a1a2e;
-  color: #e0e0e0;
-  font-family: 'Segoe UI', sans-serif;
+  background: var(--ew-bg);
+  color: var(--ew-text);
+  font-family: var(--ew-font-sans);
   display: flex;
   justify-content: center;
   padding: 20px;
@@ -24,7 +24,7 @@ body {
 
 h1 {
   font-size: 1.8rem;
-  color: #00d4aa;
+  color: var(--ew-accent);
   letter-spacing: 2px;
 }
 
@@ -34,16 +34,16 @@ h1 {
   gap: 10px;
   align-items: center;
   justify-content: center;
-  background: #16213e;
+  background: var(--ew-surface);
   padding: 12px 20px;
   border-radius: 10px;
   width: 100%;
 }
 
 button {
-  background: #0f3460;
-  color: #e0e0e0;
-  border: 1px solid #00d4aa;
+  background: var(--ew-surface-2);
+  color: var(--ew-text);
+  border: 1px solid var(--ew-border-strong);
   border-radius: 6px;
   padding: 8px 16px;
   cursor: pointer;
@@ -52,8 +52,8 @@ button {
 }
 
 button:hover {
-  background: #00d4aa;
-  color: #1a1a2e;
+  background: var(--ew-accent);
+  color: var(--ew-text-on-accent);
 }
 
 label {
@@ -64,11 +64,11 @@ label {
 }
 
 input[type="range"] {
-  accent-color: #00d4aa;
+  accent-color: var(--ew-accent);
 }
 
 input[type="checkbox"] {
-  accent-color: #00d4aa;
+  accent-color: var(--ew-accent);
   width: 14px;
   height: 14px;
   cursor: pointer;
@@ -76,22 +76,22 @@ input[type="checkbox"] {
 
 input[type="number"] {
   width: 60px;
-  background: #0f3460;
-  color: #e0e0e0;
-  border: 1px solid #00d4aa;
+  background: var(--ew-surface-2);
+  color: var(--ew-text);
+  border: 1px solid var(--ew-accent);
   border-radius: 4px;
   padding: 2px 6px;
   font-size: 0.9rem;
 }
 
 input[type="number"]:disabled {
-  border-color: #444;
-  color: #555;
+  border-color: var(--ew-border-strong);
+  color: var(--ew-text-faint);
 }
 
 #generation {
   font-size: 0.9rem;
-  color: #00d4aa;
+  color: var(--ew-accent);
   font-weight: bold;
 }
 
@@ -101,7 +101,7 @@ input[type="number"]:disabled {
   gap: 10px;
   align-items: center;
   justify-content: center;
-  background: #16213e;
+  background: var(--ew-surface);
   padding: 10px 20px;
   border-radius: 10px;
   width: 100%;
@@ -109,7 +109,7 @@ input[type="number"]:disabled {
 
 #structures-label {
   font-size: 0.9rem;
-  color: #888;
+  color: var(--ew-text-muted);
 }
 
 #stats {
@@ -118,7 +118,7 @@ input[type="number"]:disabled {
   gap: 16px;
   align-items: center;
   justify-content: center;
-  background: #0f1a2e;
+  background: var(--ew-bg);
   padding: 8px 20px;
   border-radius: 10px;
   width: 100%;
@@ -127,41 +127,41 @@ input[type="number"]:disabled {
 }
 
 #stats-label {
-  color: #888;
+  color: var(--ew-text-muted);
   font-weight: normal;
 }
 
 .btn-structure {
-  border-color: var(--sc, #00d4aa);
-  color: var(--sc, #e0e0e0);
+  border-color: var(--sc, var(--ew-accent));
+  color: var(--sc, var(--ew-text));
 }
 
 .btn-structure:hover {
-  background: var(--sc, #00d4aa);
-  color: #1a1a2e;
+  background: var(--sc, var(--ew-accent));
+  color: var(--ew-bg);
 }
 
 button.active {
-  background: var(--sc, #00d4aa);
-  color: #1a1a2e;
+  background: var(--sc, var(--ew-accent));
+  color: var(--ew-bg);
   font-weight: bold;
 }
 
 #btn-coloring {
-  background: #00d4aa;
-  color: #1a1a2e;
+  background: var(--ew-accent);
+  color: var(--ew-bg);
   font-weight: bold;
-  border-color: #00d4aa;
+  border-color: var(--ew-accent);
 }
 
 #btn-coloring:not(.active) {
-  background: #0f3460;
-  color: #888;
-  border-color: #888;
+  background: var(--ew-surface-2);
+  color: var(--ew-text-muted);
+  border-color: var(--ew-text-muted);
 }
 
 canvas {
-  border: 2px solid #00d4aa;
+  border: 1px solid var(--ew-border-strong);
   border-radius: 6px;
   cursor: crosshair;
   background: #0a0a1a;
@@ -169,30 +169,30 @@ canvas {
 
 #hint {
   font-size: 0.8rem;
-  color: #888;
+  color: var(--ew-text-muted);
 }
 
 #btn-lang {
-  background: #1a1a2e;
-  color: #00d4aa;
-  border-color: #00d4aa;
+  background: var(--ew-bg);
+  color: var(--ew-accent);
+  border-color: var(--ew-accent);
   font-weight: bold;
 }
 
 #btn-lang:hover {
-  background: #00d4aa;
-  color: #1a1a2e;
+  background: var(--ew-accent);
+  color: var(--ew-bg);
 }
 
 #btn-info {
-  background: #00d4aa;
-  color: #1a1a2e;
+  background: var(--ew-accent);
+  color: var(--ew-bg);
   font-weight: bold;
-  border-color: #00d4aa;
+  border-color: var(--ew-accent);
 }
 
 #btn-info:hover {
-  background: #00f0c0;
+  background: var(--ew-accent-hover);
 }
 
 #modal-overlay {
@@ -210,8 +210,8 @@ canvas {
 }
 
 #modal {
-  background: #16213e;
-  border: 2px solid #00d4aa;
+  background: var(--ew-surface);
+  border: 1px solid var(--ew-border-strong);
   border-radius: 12px;
   padding: 32px;
   max-width: 520px;
@@ -222,7 +222,7 @@ canvas {
 }
 
 #modal h2 {
-  color: #00d4aa;
+  color: var(--ew-accent);
   font-size: 1.3rem;
 }
 
@@ -235,7 +235,7 @@ canvas {
 }
 
 #modal a {
-  color: #00d4aa;
+  color: var(--ew-accent);
   text-decoration: none;
 }
 
@@ -246,3 +246,8 @@ canvas {
 #modal-close {
   align-self: flex-end;
 }
+
+/* Eulenwerk */
+h1 { display: flex; align-items: center; gap: 12px; letter-spacing: 0; color: var(--ew-text); font-weight: 600; }
+.app-logo { width: 36px; height: 36px; border-radius: 9px; }
+#app > .ew-footer { width: 100%; padding: 8px 0 0; border-top: 1px solid var(--ew-border); }
